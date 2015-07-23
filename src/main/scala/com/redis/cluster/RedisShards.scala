@@ -248,7 +248,7 @@ abstract class RedisShards(val hosts: List[ClusterNode]) extends RedisCommand {
     minInclusive: Boolean = true, maxInclusive: Boolean = true)(implicit format: Format): Option[Long] =
       processForKey(key)(_.zcount(key, min, max, minInclusive, maxInclusive))
 
-  override def zrank(key: Any, member: Any, reverse: Boolean = false)(implicit format: Format) = processForKey(key)(_.zrank(key, member, reverse))
+  override def zrank(key: Any, member: Any, reverse: Boolean = false, unique: Boolean = false)(implicit format: Format) = processForKey(key)(_.zrank(key, member, reverse,unique))
   override def zremrangebyrank(key: Any, start: Int = 0, end: Int = -1)(implicit format: Format) = processForKey(key)(_.zremrangebyrank(key, start, end))
   override def zremrangebyscore(key: Any, start: Double = Double.NegativeInfinity, 
     end: Double = Double.PositiveInfinity)(implicit format: Format) = processForKey(key)(_.zremrangebyscore(key, start, end))

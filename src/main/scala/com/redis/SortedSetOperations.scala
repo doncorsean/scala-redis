@@ -101,8 +101,9 @@ trait SortedSetOperations { self: Redis =>
   // ZRANK
   // ZREVRANK
   //
-  def zrank(key: Any, member: Any, reverse: Boolean = false)(implicit format: Format): Option[Long] =
-    send(if (reverse) "ZREVRANK" else "ZRANK", List(key, member))(asLong)
+  def zrank(key: Any, member: Any, reverse: Boolean, unique: Boolean)(implicit format: Format): Option[Long] = {
+    send(if (reverse) "ZREVRANK" else "ZRANK", if (unique) List(key, member, "unique") else List(key, member))(asLong)
+  }
 
   // ZREMRANGEBYRANK
   //
